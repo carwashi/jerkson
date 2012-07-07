@@ -1,10 +1,13 @@
 package com.codahale.jerkson.tests
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.annotation.{JsonIgnoreProperties, JsonIgnore}
 import com.codahale.jerkson.JsonSnakeCase
+import com.fasterxml.jackson.annotation.{JsonIgnoreProperties, JsonIgnore}
+import com.fasterxml.jackson.databind.JsonNode
 
 case class CaseClass(id: Long, name: String)
+
+case class CaseClassWithDefaultString(id: Long, name: String = "Coda")
+case class CaseClassWithDefaultInt(id: Long, answer: Int = 42)
 
 case class CaseClassWithLazyVal(id: Long) {
   lazy val woo = "yeah"

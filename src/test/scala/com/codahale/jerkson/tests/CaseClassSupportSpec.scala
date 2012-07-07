@@ -3,8 +3,8 @@ package com.codahale.jerkson.tests
 import com.codahale.jerkson.Json._
 import com.codahale.simplespec.Spec
 import com.codahale.jerkson.ParsingException
-import com.fasterxml.jackson.databind.node.IntNode
 import org.junit.Test
+import com.fasterxml.jackson.databind.node.IntNode
 
 class CaseClassSupportSpec extends Spec {
   class `A basic case class` {
@@ -24,6 +24,13 @@ class CaseClassSupportSpec extends Spec {
       evaluating {
         parse[CaseClass]("""{"id":1}""")
       }.must(throwA[ParsingException]("""Invalid JSON. Needed [id, name], but found [id]."""))
+    }
+  }
+
+  class `A case class with a default field` {
+    @Test def `is parsable from an incomplete JSON object` = {
+      parse[CaseClassWithDefaultString]("""{"id":1}""").must(be(CaseClassWithDefaultString(1, "Coda")))
+      parse[CaseClassWithDefaultInt]("""{"id":1}""").must(be(CaseClassWithDefaultInt(1, 42)))
     }
   }
 
